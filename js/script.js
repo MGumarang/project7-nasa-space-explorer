@@ -68,8 +68,14 @@ async function getSpaceImages() {
             gallery.appendChild(card); // Append the card to the gallery
         });
 
-    } catch (error) {
+    } catch (error) { // Catch any errors that occur during the fetch operation and log them to the console. Also, display an error message in the gallery.
         console.error('Error fetching space images:', error);
+        gallery.innerHTML = `
+            <div class="placeholder">
+                <div class="placeholder-icon">❌</div>
+                <p>Error fetching space photos. Please try again later.</p>
+            </div>
+        `;
     }
 };
 
@@ -88,6 +94,21 @@ async function openModal(item) {
     const modal = document.getElementById('modal'); // Find the DOM element for the modal
 
     modal.style.display = 'block'; // Show the modal
+
+    // Set the modal content with the clicked item's data
+    modal.innerHTML = `
+        <div class="modal-content">
+            <div class="modal-image-container">
+                <img src="${item.url}" alt="${item.title}" class="modal-image"/>
+            </div>
+            <div class="modal-text">
+                <h2 class="modal-title">${item.title}</h2>
+                <p class="modal-date">${item.date}</p>
+                
+                <p class="modal-explanation">${item.explanation}</p>
+            </div>
+        </div>
+    `;
 };
 
 // Event listener to close the modal when the user clicks outside of it

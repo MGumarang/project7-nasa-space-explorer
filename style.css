@@ -8,7 +8,7 @@
 /* Base page styles */
 body {
   font-family: 'Public Sans', Arial, sans-serif;
-  background-color: #f1f1f1;
+  background-color: #0b3d91;
   padding: 20px;
 }
 
@@ -31,7 +31,7 @@ body {
 h1 {
   font-family: 'Inter', Verdana, sans-serif;
   font-weight: bold;
-  color: #212121;
+  color: white;
 }
 
 /* Logo */
@@ -71,7 +71,7 @@ button {
   cursor: pointer;
 }
 button:hover {
-  background-color: #bfbfbf;
+  background-color: #afafaf;
 }
 
 /* Stack horizontally on wider screens */
@@ -85,6 +85,10 @@ button:hover {
   button {
     width: auto;
   }
+}
+
+.placeholder p {
+  color: white;
 }
 
 /* Gallery flex container */
@@ -101,7 +105,8 @@ button:hover {
   flex: 1 1 100%;  /* full width by default */
   min-width: 280px;
   max-width: 500px;
-  background: white;
+  background: #dd361c;
+  color: white;
   padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0,0,0,0.1);
@@ -113,7 +118,7 @@ button:hover {
 
 .gallery-item:hover {
   box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-  background-color: #cccccc;
+  background-color: #99231b;
 }
 
 .gallery-item h2 {
@@ -130,16 +135,53 @@ button:hover {
   left: 0;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: rgba(0,0,0,0.5);
 }
 
 .modal-content {
-  background-color: #fefefe;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 20px;
+  position: relative;
+  background-color: #dd361c;
+  color: white;
   margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
+  max-width: 90%;
+  max-height: 100%;
+  overflow-y: auto;
+}
+
+h2.modal-title {
+  font-size: 35px;
+  margin-bottom: 10px;
+}
+
+.modal-date {
+  font-size: 21px;
+  margin-bottom: 10px;
+}
+
+.modal-image {
+  width: auto;
+  max-height: 600px;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.modal-image-container {
+  margin-bottom: 20px;
+}
+
+.modal-explanation {
+  font-size: 16px;
+  margin: 20px 0 20px;
+  line-height: 1.5;
 }
 
 /* Three columns on wider screens */
