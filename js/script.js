@@ -47,17 +47,39 @@ async function getSpaceImages() {
         console.log(data); // Log the data to the console for debugging purposes
 
         gallery.innerHTML = ''; // Clear the gallery after fetching new data and before adding new images
+        
 
         // Loop through the data and create image, title, and description elements for each item
         data.forEach(item => {
+
+            let cardMediaHTML; // Variable to hold the HTML for the media content (image or video)
+
+            if (item.media_type === 'image') { // If the media type is 'image', create an image element with the URL and title from the API data
+
+                cardMediaHTML = `
+                    <img src="${item.url}" alt="${item.title}" class="card-image"/>
+                `;
+
+            } else if (item.media_type === 'video') { // If the media type is 'video', create a placeholder for the video with an icon and text indicating that it's a video
+
+                cardMediaHTML = `
+                    <div class="video-card">
+                        <span class="video-icon">🎬</span>
+                        <p>Video</p>
+                    </div>
+                `;
+
+            }
+
             const card = document.createElement('div'); // Create a new div element for the card
             card.classList.add('gallery-item'); // Add the 'card' class to the div
 
             // Formats the inner HTML of the card with the image, title, and date from the API data
             card.innerHTML = `
-                <img src="${item.url}" alt="${item.title}" class="card-image"/>
+                ${cardMediaHTML}
                 <h2 class="card-title">${item.title}</h2>
                 <p class="card-date">${item.date}</p>
+                <p>Click to view details</p>
             `;
 
             card.addEventListener('click', () => {
@@ -101,31 +123,41 @@ async function openModal(item) {
     }
 
     // Check the media type of the item and create the appropriate HTML for the modal content
-    if (item.media_type === 'image') {
+    if (item.media_type === 'image') { // If the media type is 'image', create an image element with a link to the high-resolution version of the image
         mediaHTML = `
             <a href="${item.hdurl}" target="_blank">
                 <img src="${item.url}" alt="${item.title}" class="modal-image"/>
             </a>
             <p>Click the image to view in full resolution</p>
         `;
-    } else if (item.media_type === 'video') {
+    } else if (item.media_type === 'video') { // If the media type is 'video', check if the URL is from YouTube or Vimeo and create an iframe for the video. Otherwise, provide a link to view the video in a new tab.
 
-        if(item.url.includes('youtube.com/embed') || item.url.includes('player.vimeo.com')) {
+        if(item.url.includes('youtube.com/embed') || item.url.includes('player.vimeo.com')) { // If the video is from YouTube or Vimeo, create an iframe to embed the video
         mediaHTML = `
-            <iframe src="${item.url}" class="modal-video" allowfullscreen></iframe>
+            <iframe src="${item.url}" 
+                class="modal-video" 
+                title="${item.title}" 
+                frameborder="0" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen></iframe>
             <p>Click the video to view in full resolution</p>
+            <p>Having trouble playing the video?</p>
+            <a href="${item.url}" target="_blank" class="video-fallback">Open it on YouTube/Vimeo</a>
+            
         `;
-        } else {
+        } else { // If the video is not from YouTube or Vimeo, provide a link to view the video in a new tab
             mediaHTML = `
                 <div class="video-placeholder">
                     <p>This Astronomy Picture of the Day is a video.</p>
-                    <a href="${item.url}" target="_blank" class="video-link">Click here to view the video</a>
+                    <a href="${item.url}" target="_blank" class="odd-video-link">View the video here</a>
                 </div>
             `;
         }
     }
 
     modal.style.display = 'flex'; // Show the modal
+    console.log(item.url);
 
     // Set the modal content with the clicked item's data
     modal.innerHTML = `
