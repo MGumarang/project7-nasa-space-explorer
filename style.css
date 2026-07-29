@@ -380,5 +380,6 @@ a.odd-video-link:active {
   .modal-content {
     width: 80vw;
     max-height: 75vh;
+    padding: 20px 0;
   }
 }
