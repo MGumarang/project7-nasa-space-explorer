@@ -92,19 +92,50 @@ const handleCardButtonClick = (event) => {
 // Function to open the modal with the clicked item's data
 async function openModal(item) {
     const modal = document.getElementById('modal'); // Find the DOM element for the modal
+    let mediaHTML; // Variable to hold the HTML for the media content (image or video)
 
-    modal.style.display = 'block'; // Show the modal
+    // Check if the modal element exists before trying to access its properties
+    if (!modal) {
+        console.error('Modal element not found');
+        return;
+    }
+
+    // Check the media type of the item and create the appropriate HTML for the modal content
+    if (item.media_type === 'image') {
+        mediaHTML = `
+            <a href="${item.hdurl}" target="_blank">
+                <img src="${item.url}" alt="${item.title}" class="modal-image"/>
+            </a>
+            <p>Click the image to view in full resolution</p>
+        `;
+    } else if (item.media_type === 'video') {
+
+        if(item.url.includes('youtube.com/embed') || item.url.includes('player.vimeo.com')) {
+        mediaHTML = `
+            <iframe src="${item.url}" class="modal-video" allowfullscreen></iframe>
+            <p>Click the video to view in full resolution</p>
+        `;
+        } else {
+            mediaHTML = `
+                <div class="video-placeholder">
+                    <p>This Astronomy Picture of the Day is a video.</p>
+                    <a href="${item.url}" target="_blank" class="video-link">Click here to view the video</a>
+                </div>
+            `;
+        }
+    }
+
+    modal.style.display = 'flex'; // Show the modal
 
     // Set the modal content with the clicked item's data
     modal.innerHTML = `
         <div class="modal-content">
             <div class="modal-image-container">
-                <img src="${item.url}" alt="${item.title}" class="modal-image"/>
+                ${mediaHTML}
             </div>
             <div class="modal-text">
                 <h2 class="modal-title">${item.title}</h2>
                 <p class="modal-date">${item.date}</p>
-                
                 <p class="modal-explanation">${item.explanation}</p>
             </div>
         </div>

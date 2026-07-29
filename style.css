@@ -131,59 +131,100 @@ button:hover {
 .modal {
   display: none;
   position: fixed;
+  inset: 0;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
   z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
-  height: auto;
   background-color: rgba(0,0,0,0.5);
 }
 
 .modal-content {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
+  flex-direction: column;
   gap: 20px;
   position: relative;
   background-color: #dd361c;
   color: white;
-  margin: 15% auto;
   padding: 20px;
   border: 1px solid #888;
   border-radius: 8px;
+  width: min(95vw, 1400px);
+  max-height: 90vh;
+  align-items: start;
+  overflow-y: auto;
+}
+
+.modal-image {
+  display: flex;
   width: 100%;
   height: auto;
-  max-width: 90%;
-  max-height: 100%;
-  overflow-y: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 6px;
+}
+
+.modal-content a:hover {
+  filter: brightness(0.7);
+}
+
+.modal-image-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.modal-image-container p {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.modal-text {
+  display: flex;
+  flex-direction: column;
+  gap: 21px;
+  padding-right: 20px;
 }
 
 h2.modal-title {
   font-size: 35px;
-  margin-bottom: 10px;
+  text-align: center;
 }
 
 .modal-date {
   font-size: 21px;
-  margin-bottom: 10px;
-}
-
-.modal-image {
-  width: auto;
-  max-height: 600px;
-  height: 100%;
-  border-radius: 4px;
-}
-
-.modal-image-container {
-  margin-bottom: 20px;
+  text-align: center;
 }
 
 .modal-explanation {
+  margin-top: 10px;
+  padding: 10px;
   font-size: 16px;
-  margin: 20px 0 20px;
-  line-height: 1.5;
+  line-height: 1.7;
 }
 
+.video-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+}
+
+a.video-link {
+  background-color: #d3d3d3;
+  margin-top: 10px;
+  padding: 10px 15px;
+  border-radius: 4px;
+  color: black;
+  text-decoration: underline;
+  font-size: 16px;
+}
 /* Three columns on wider screens */
 @media (min-width: 1000px) {
   .gallery-item {
